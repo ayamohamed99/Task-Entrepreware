@@ -62,26 +62,35 @@ class _ListViewScreenState extends State<ListViewScreen> {
       margin: EdgeInsets.all(3.0),
       width: size.width,
       child: Row(children: [
-             IconButton(
-                onPressed: () {
+        IconButton(
+            onPressed: () {
+              switch (indexgrid) {
+                case 0:
                   setState(() {
-                    indexgrid == 0
-                        ? day[index].check = !day[index].check
-                        : indexgrid == 1
-                            ? week[index].check = !week[index].check
-                            : 
-                    month[index].check =
-                        !month[index].check;
+                    day[index].check = !day[index].check;
                   });
-                },
-                icon: (indexgrid == 0 && day[index].check == true)
+
+                  break;
+                case 1:
+                  setState(() {
+                    week[index].check = !week[index].check;
+                  });
+
+                  break;
+                case 2:
+                  setState(() {
+                    month[index].check = !month[index].check;
+                  });
+                  break;
+              }
+            },
+            icon: (indexgrid == 0 && day[index].check == true)
+                ? Icon(FontAwesomeIcons.checkCircle)
+                : (indexgrid == 1 && week[index].check == true)
                     ? Icon(FontAwesomeIcons.checkCircle)
-                    : (indexgrid == 1 && week[index].check == true)
+                    : (indexgrid == 2 && month[index].check == true)
                         ? Icon(FontAwesomeIcons.checkCircle)
-                        : (indexgrid == 2 && month[index].check == true)
-                            ? Icon(FontAwesomeIcons.checkCircle)
-                            : Icon(FontAwesomeIcons.circle)),
-        
+                        : Icon(FontAwesomeIcons.circle)),
         SizedBox(width: 5),
         Expanded(
           child: Text(
@@ -105,17 +114,16 @@ class _ListViewScreenState extends State<ListViewScreen> {
           ),
         ),
         IconButton(
-           onPressed: () {
-             setState(() {
-               indexgrid == 0
-                   ? day.removeAt(index)
-                   : indexgrid == 1
-                       ? week.removeAt(index)
-                       : 
-                       month.removeAt(index);
-             });
-           },
-           icon: Icon(FontAwesomeIcons.trash))
+            onPressed: () {
+              setState(() {
+                indexgrid == 0
+                    ? day.removeAt(index)
+                    : indexgrid == 1
+                        ? week.removeAt(index)
+                        : month.removeAt(index);
+              });
+            },
+            icon: Icon(FontAwesomeIcons.trash , color: titleColor[indexgrid],))
       ]),
     );
   }
