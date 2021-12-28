@@ -1,8 +1,6 @@
-import 'dart:math';
-
 import 'package:emaxapp/common_widgets/creat_app_bar.dart';
 import 'package:emaxapp/common_widgets/creat_text_field.dart';
-import 'package:emaxapp/providers/language_provider.dart';
+import 'package:emaxapp/local_data.dart';
 import 'package:emaxapp/providers/todo_provider.dart';
 import 'package:emaxapp/utilities/text_style.dart';
 import 'package:flutter/material.dart';
@@ -18,50 +16,21 @@ class ListViewScreen extends StatefulWidget {
 }
 
 class _ListViewScreenState extends State<ListViewScreen> {
-  LanguageProvider languageProvider;
   ToDoProvider toDoProvider;
-  TextEditingController _bodycontrallerD = TextEditingController();
-  TextEditingController _bodycontrallerW = TextEditingController();
-  TextEditingController _bodycontrallerM = TextEditingController();
-  List<String> titleAR = [" شهري", "أسبوعي", "يومي"];
-  List<String> titleEN = ["Daily", "Weekly", "Monthly"];
-  List<String> images = [
-    'assets/image/d.jpg',
-    'assets/image/w.jpg',
-    'assets/image/m.jpg'
-  ];
-  List<String> imagesAR = [
-    'assets/image/mAR.jpg',
-    'assets/image/wAR.jpg',
-    'assets/image/dAR.jpg'
-  ];
-  List<Color> color = [Colors.yellow[600], Colors.orange[500], Colors.red[500]];
-  List<Color> titleColor = [Colors.red[500], Colors.yellow[600], Colors.orange[500]];
 
   @override
   void initState() {
     super.initState();
-    languageProvider = Provider.of<LanguageProvider>(context, listen: false);
     toDoProvider = Provider.of<ToDoProvider>(context, listen: false);
   }
 
   @override
   Widget build(BuildContext context) {
-    languageProvider = Provider.of<LanguageProvider>(context, listen: true);
     toDoProvider = Provider.of<ToDoProvider>(context, listen: true);
-    Size size = MediaQuery.of(context).size;
-    final AlertDialog alert = AlertDialog(
-        title: Text(languageProvider.getTexts('ErrorText')),
-        content: TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text(languageProvider.getTexts('done')),
-        ));
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CreatAppBar(
-          label: languageProvider.getTexts('thirdNavBarTitle'),
+          label: "MY-TO-DO-List",
         ),
         body: GridView.builder(
             padding: EdgeInsets.all(30),
@@ -74,203 +43,190 @@ class _ListViewScreenState extends State<ListViewScreen> {
                 crossAxisSpacing: 2.0,
                 childAspectRatio: 0.8),
             itemCount: 3,
-            itemBuilder: (context, indexgrid) => Container(
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.all(10.0),
-                  color: color[indexgrid],
-                  height: size.height,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        height: size.height * 0.1,
-                        color: titleColor[indexgrid],
-                        child: Directionality(
-                          textDirection: languageProvider.isEnglish == true
-                              ? TextDirection.ltr
-                              : TextDirection.rtl,
-                          child: Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                      languageProvider.isEnglish == true
-                                          ? AssetImage(images[indexgrid])
-                                          : AssetImage(imagesAR[indexgrid]),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  languageProvider.isEnglish == true
-                                      ? titleEN[indexgrid]
-                                      : titleAR[indexgrid],
-                                  style: Maintext.display5(context),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        // flex: 6,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            // color: Colors.black,
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: indexgrid == 0 
-                                    ? toDoProvider.allTasks1.length
-                                    : indexgrid == 1
-                                        ? toDoProvider.allTasks2.length
-                                        : toDoProvider.allTasks3.length,
-                                itemBuilder: (context, index) => Container(
-                                      margin: EdgeInsets.all(3.0),
-                                      // color: Colors.white,
-                                      // height: 45,
-                                      child: Directionality(
-                                        textDirection:
-                                            languageProvider.isEnglish == true
-                                                ? TextDirection.ltr
-                                                : TextDirection.rtl,
-                                        child: Container(
-                                          width: size.width,
-                                          child: Row(
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor:
-                                                    titleColor[indexgrid],
-                                                maxRadius: 10,
-                                                minRadius: 5,
-                                              ),
-                                              SizedBox(width : 10),
-                                              Expanded(
-                                                child: Text(
-                                                  indexgrid == 0
-                                                      ? toDoProvider
-                                                          .allTasks1[index].taskbody
-                                                      : indexgrid == 1
-                                                          ? toDoProvider
-                                                              .allTasks2[index]
-                                                              .taskbody
-                                                          : toDoProvider
-                                                              .allTasks3[index]
-                                                              .taskbody,
-                                                  maxLines: 40,
-                                                  overflow: TextOverflow.ellipsis,
-                                                  style: TextStyle(fontSize: 18),
-                                                  // textDirection: TextDirection.rtl,
-                                                  // textAlign: TextAlign.end,
-                                                  // style: Bodytask.display5(context),
-                                                ),
-                                              ),
-                                             
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                          ),
-                        ),
-                      ),
-                      // Spacer(),
-                      Directionality(
-                        textDirection: languageProvider.isEnglish == true
-                            ? TextDirection.ltr
-                            : TextDirection.rtl,
-                        child: Row(
-                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                                flex: 3,
-                                child: CreatTextField(
-                                  controller: indexgrid == 0
-                                      ? _bodycontrallerD
-                                      : indexgrid == 1
-                                          ? _bodycontrallerW
-                                          : _bodycontrallerM,
-                                )),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                  // margin: EdgeInsets.only(bottom: 30),
-                                  height: 75,
-                                  child: IconButton(
-                                      onPressed: () {
-                                        if (_bodycontrallerD.text.isEmpty &&
-                                            _bodycontrallerM.text.isEmpty &&
-                                            _bodycontrallerW.text.isEmpty) {
-                                          print(indexgrid);
-                                          showDialog(
-                                            context: context,
-                                            builder: (BuildContext context) {
-                                              return alert;
-                                            },
-                                          );
-                                        } else {
-                                          print(indexgrid);
-                                          if(languageProvider.isEnglish == true){
-                                              if (indexgrid == 0) {
-                                            toDoProvider.addTask1(
-                                                index: toDoProvider
-                                                    .allTasks1.length,
-                                                body: _bodycontrallerD.text);
-                                            _bodycontrallerD.clear();
-                                          }
-                                          if (indexgrid == 1) {
-                                            toDoProvider.addTask2(
-                                                index: toDoProvider
-                                                    .allTasks2.length,
-                                                body: _bodycontrallerW.text);
-                                            _bodycontrallerW.clear();
-                                          }
-                                          if (indexgrid == 2) {
-                                            toDoProvider.addTask3(
-                                                index: toDoProvider
-                                                    .allTasks3.length,
-                                                body: _bodycontrallerM.text);
-                                            _bodycontrallerM.clear();
-                                          }
-                                          }
-                                          else{
-  if (indexgrid == 0) {
-                                            toDoProvider.addTask3(
-                                                index: toDoProvider
-                                                    .allTasks3.length,
-                                                body: _bodycontrallerD.text);
-                                            _bodycontrallerD.clear();
-                                          }
-                                          if (indexgrid == 1) {
-                                            toDoProvider.addTask2(
-                                                index: toDoProvider
-                                                    .allTasks2.length,
-                                                body: _bodycontrallerW.text);
-                                            _bodycontrallerW.clear();
-                                          }
-                                          if (indexgrid == 2) {
-                                            toDoProvider.addTask1(
-                                                index: toDoProvider
-                                                    .allTasks1.length,
-                                                body: _bodycontrallerM.text);
-                                            _bodycontrallerM.clear();
-                                          }
-                                          }
-                                          
-                                        }
-                                      },
-                                      icon: Icon(
-                                        FontAwesomeIcons.plusCircle,
-                                        size: 40,
-                                        color: Colors.white,
-                                      ))),
-                            )
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )));
+            itemBuilder: (context, indexgrid) => _body(indexgrid)));
+  }
+
+  Widget _body(int indexgrid) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.all(10.0),
+        color: color[indexgrid],
+        height: size.height,
+        child: _part1(indexgrid));
+  }
+
+  Widget _listViewBody(int index, int indexgrid, var day, var week, var month) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      margin: EdgeInsets.all(3.0),
+      width: size.width,
+      child: Row(children: [
+             IconButton(
+                onPressed: () {
+                  setState(() {
+                    indexgrid == 0
+                        ? day[index].check = !day[index].check
+                        : indexgrid == 1
+                            ? week[index].check = !week[index].check
+                            : 
+                    month[index].check =
+                        !month[index].check;
+                  });
+                },
+                icon: (indexgrid == 0 && day[index].check == true)
+                    ? Icon(FontAwesomeIcons.checkCircle)
+                    : (indexgrid == 1 && week[index].check == true)
+                        ? Icon(FontAwesomeIcons.checkCircle)
+                        : (indexgrid == 2 && month[index].check == true)
+                            ? Icon(FontAwesomeIcons.checkCircle)
+                            : Icon(FontAwesomeIcons.circle)),
+        
+        SizedBox(width: 5),
+        Expanded(
+          child: Text(
+            indexgrid == 0
+                ? day[index].taskbody
+                : indexgrid == 1
+                    ? week[index].taskbody
+                    : month[index].taskbody,
+            maxLines: 40,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 18,
+              decoration: (indexgrid == 0 && day[index].check == true)
+                  ? TextDecoration.lineThrough
+                  : (indexgrid == 1 && week[index].check == true)
+                      ? TextDecoration.lineThrough
+                      : (indexgrid == 2 && month[index].check == true)
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none,
+            ),
+          ),
+        ),
+        IconButton(
+           onPressed: () {
+             setState(() {
+               indexgrid == 0
+                   ? day.removeAt(index)
+                   : indexgrid == 1
+                       ? week.removeAt(index)
+                       : 
+                       month.removeAt(index);
+             });
+           },
+           icon: Icon(FontAwesomeIcons.trash))
+      ]),
+    );
+  }
+
+  Widget _part1(int indexgrid) {
+    Size size = MediaQuery.of(context).size;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          height: size.height * 0.1,
+          color: titleColor[indexgrid],
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage(images[indexgrid]),
+                ),
+              ),
+              Text(
+                titleEN[indexgrid],
+                style: Maintext.display5(context),
+              ),
+            ],
+          ),
+        ),
+        _part2(indexgrid),
+        _part3(indexgrid)
+      ],
+    );
+  }
+
+  Widget _part2(int indexgrid) {
+    var day = toDoProvider.allTasks1;
+    var week = toDoProvider.allTasks2;
+    var month = toDoProvider.allTasks3;
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(
+            child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: indexgrid == 0
+                    ? day.length
+                    : indexgrid == 1
+                        ? week.length
+                        : month.length,
+                itemBuilder: (context, index) =>
+                    _listViewBody(index, indexgrid, day, week, month))),
+      ),
+    );
+  }
+
+  Widget _part3(int indexgrid) {
+    final AlertDialog alert = AlertDialog(
+        title: Text('Please enter a new task'),
+        content: TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("Okay"),
+        ));
+    return Row(
+      children: [
+        Expanded(
+            flex: 3,
+            child: CreatTextField(
+              controller: indexgrid == 0
+                  ? bodycontrallerD
+                  : indexgrid == 1
+                      ? bodycontrallerW
+                      : bodycontrallerM,
+            )),
+        Expanded(
+          flex: 1,
+          child: Container(
+              height: 75,
+              child: IconButton(
+                  onPressed: () {
+                    if (bodycontrallerD.text.isEmpty &&
+                        bodycontrallerM.text.isEmpty &&
+                        bodycontrallerW.text.isEmpty) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return alert;
+                        },
+                      );
+                    } else {
+                      toDoProvider.addTask(
+                          to_do_list: indexgrid,
+                          body: indexgrid == 0
+                              ? bodycontrallerD.text
+                              : indexgrid == 1
+                                  ? bodycontrallerW.text
+                                  : bodycontrallerM.text);
+                      indexgrid == 0
+                          ? bodycontrallerD.clear()
+                          : indexgrid == 1
+                              ? bodycontrallerW.clear()
+                              : bodycontrallerM.clear();
+                    }
+                  },
+                  icon: Icon(
+                    FontAwesomeIcons.plusCircle,
+                    size: 40,
+                    color: Colors.white,
+                  ))),
+        )
+      ],
+    );
   }
 }

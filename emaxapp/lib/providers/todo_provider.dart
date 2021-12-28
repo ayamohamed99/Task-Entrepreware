@@ -1,7 +1,4 @@
-import 'package:emaxapp/model/todoDalily_model.dart';
-import 'package:emaxapp/model/todomonthly_model.dart';
-import 'package:emaxapp/model/todoweekly_model.dart';
-
+import 'package:emaxapp/model/todo_model.dart';
 import 'package:flutter/material.dart';
 
 class ToDoProvider extends ChangeNotifier {
@@ -9,40 +6,71 @@ class ToDoProvider extends ChangeNotifier {
   List<TODOWeeklyList> allTasks2 = [];
   List<TODOMonthlyList> allTasks3 = [];
 
-  void addTask1({int index, String body}) {
-  
-      allTasks1.insert(
-          index,
+
+void addTask({ String body , int to_do_list}){
+  to_do_list == 0 ?
+   allTasks1.insert(
+          allTasks1.length,
           TODODailyList(
-            // id: index,
+            check: false,
             taskbody: body,
-          ));
-    
-
-    notifyListeners();
-  }
-   void addTask2({int index, String body}) {
-  
-      allTasks2.insert(
-          index,
+          )) :
+          to_do_list == 1 ? 
+            allTasks2.insert(
+         allTasks2.length,
           TODOWeeklyList(
-            // id: index,
+            check: false,
             taskbody: body,
-          ));
-    
+          )):
 
-    notifyListeners();
-  }
-   void addTask3({int index, String body}) {
-  
-      allTasks3.insert(
-          index,
+        allTasks3.insert(
+          allTasks3.length,
           TODOMonthlyList(
-            // id: index,
+           check: false,
             taskbody: body,
           ));
     
 
     notifyListeners();
-  }
+}
+
+
+
+
+  // void addTask1({int index, String body}) {
+  
+  //     allTasks1.insert(
+  //         index,
+  //         TODODailyList(
+  //           // id: index,
+  //           taskbody: body,
+  //         ));
+    
+
+  //   notifyListeners();
+  // }
+  //  void addTask2({int index, String body}) {
+  
+  //     allTasks2.insert(
+  //         index,
+  //         TODOWeeklyList(
+  //           // id: index,
+  //           taskbody: body,
+  //         ));
+    
+
+  //   notifyListeners();
+  // }
+  //  void addTask3({int index, String body}) {
+  
+  //     allTasks3.insert(
+  //         index,
+  //         TODOMonthlyList(
+  //           // id: index,
+  //           taskbody: body,
+  //         ));
+    
+
+  //   notifyListeners();
+  // }
 }
