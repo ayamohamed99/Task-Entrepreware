@@ -18,7 +18,6 @@ class CreatAppBar extends StatefulWidget with PreferredSizeWidget {
 }
 
 class _CreatAppBarState extends State<CreatAppBar> {
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -26,31 +25,29 @@ class _CreatAppBarState extends State<CreatAppBar> {
       elevation: 0,
       centerTitle: false,
       automaticallyImplyLeading: false,
-     flexibleSpace: Container(
+      flexibleSpace: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.centerLeft,
             end: Alignment.centerRight,
-            colors: <Color>[Colors.yellow[600], Colors.orange[500], Colors.red[500]] ,
+            colors: <Color>[
+              Colors.yellow[600],
+              Colors.orange[500],
+              Colors.red[500]
+            ],
           ),
         ),
       ),
       title: Padding(
-        padding: const EdgeInsets.only(top : 25.0),
-        child: Row
-        (
-          
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-           
-            children: [
-              Text(
-                widget.label,
-                style: TitleStyle.display5(context),
-              ),
-            
-            ]),
+        padding: const EdgeInsets.only(top: 25.0),
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(
+            widget.label,
+            style: TitleStyle.display5(context),
+          ),
+        ]),
       ),
-     
     );
   }
 }

@@ -17,7 +17,7 @@ class Maintext {
           fontSize: 20,
           fontFamily: 'Cairo',
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: Colors.white,
         );
   }
 }
@@ -54,7 +54,7 @@ class Textfiledhint {
           fontSize: 12,
           fontFamily: 'Cairo',
           fontWeight: FontWeight.normal,
-          color: Colors.grey[500],
+          color: Color(0xffE7C475),
         );
   }
 }

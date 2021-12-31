@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 class CreatTextField extends StatefulWidget {
   final String label;
-  final Function onnChanged;
+  final Function onnChanged , validator;
   final TextEditingController controller;
 
   @override
@@ -12,7 +12,7 @@ class CreatTextField extends StatefulWidget {
     Key key,
     this.label,
     this.onnChanged,
-    this.controller,
+    this.controller, this.validator,
   });
 
   @override
@@ -26,24 +26,25 @@ class _CreatTextFieldState extends State<CreatTextField> {
       child: TextFormField(
         onChanged: widget.onnChanged,
         controller: widget.controller,
+        validator: widget.validator,
         style: Textfiled.display5(context),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 3, horizontal: 10),
           filled: true,
           fillColor: Colors.white,
-          hintText: "Add new task",
+          hintText: "Phone Number",
           hintStyle: Textfiledhint.display5(context),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[200], width: 2.0),
+              borderSide: BorderSide(color: Colors.white, width: 2.0),
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
           border: OutlineInputBorder(
               borderSide: BorderSide(
-                color: Colors.grey[200],
+                color: Colors.white,
                 width: 2.0,
               ),
               borderRadius: BorderRadius.circular(10.0)),
           focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.grey[200], width: 2.0),
+              borderSide: BorderSide(color: Colors.white, width: 2.0),
               borderRadius: BorderRadius.all(Radius.circular(10.0))),
         ),
       ),

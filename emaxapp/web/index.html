@@ -97,5 +97,35 @@
       loadMainDartJs();
     }
   </script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestores.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js"></script>
+  -->
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyA9XBriJtSSkfFCkDIWSffJ4LSOBF71VI8",
+    authDomain: "searchforphone-5261b.firebaseapp.com",
+    projectId: "searchforphone-5261b",
+    storageBucket: "searchforphone-5261b.appspot.com",
+    messagingSenderId: "582355863221",
+    appId: "1:582355863221:web:878961c4f3a9aadae5e0fc",
+    measurementId: "G-J5WGF46TZL"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
+
+
+
 </body>
 </html>
